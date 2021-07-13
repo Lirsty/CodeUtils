@@ -15,7 +15,7 @@ func main() {
 	c := codereader.New(f)
 
 	c.Func["main"].AddLine("    //ABCDEFG")
-	c.Func["main"].Remove("Event.printFuncArgs()")
+	c.Func["main"].Replace("Event.printFuncArgs()", "//Event.printFuncArgs()")
 	c.Func["Event.interface2Func"].AddLine("	//TestTestTest")
 	fmt.Println(string(c.Write()))
 }

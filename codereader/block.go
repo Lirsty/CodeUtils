@@ -40,3 +40,18 @@ func (b *Block) Remove(s string) {
 		}
 	}
 }
+
+func (b *Block) Replace(target, new string) {
+	lines := b.toString()
+	for i := 0; i < len(lines); i++ {
+		if strings.Contains(lines[i], target) {
+			lines[i] = new + "\r\n"
+			bytes := make([]byte, 0)
+			for _, v := range lines {
+				bytes = append(bytes, []byte(v)...)
+			}
+			b.Code = bytes
+			break
+		}
+	}
+}
