@@ -45,7 +45,10 @@ func (c *CodeReader) read(code []byte) {
 			} else if b == '}' {
 				if f_deep--; f_deep == 0 {
 					inFunc = false
-					newBlock := &Block{Code: code[func_p : pos+1]}
+					part := code[func_p : pos+1]
+					cc := make([]byte, len(part), (cap(part)+1)*2)
+					copy(cc, part)
+					newBlock := &Block{Code: cc}
 					c.Func[f_name] = newBlock
 					c.code = append(c.code, newBlock)
 					blockPos = pos + 2
@@ -58,7 +61,10 @@ func (c *CodeReader) read(code []byte) {
 			} else if b == '}' {
 				if s_deep--; s_deep == 0 {
 					inStruct = false
-					newBlock := &Block{Code: code[struct_p : pos+1]}
+					part := code[struct_p : pos+1]
+					cc := make([]byte, len(part), (cap(part)+1)*2)
+					copy(cc, part)
+					newBlock := &Block{Code: cc}
 					c.Struct[s_name] = newBlock
 					c.code = append(c.code, newBlock)
 					blockPos = pos + 2
